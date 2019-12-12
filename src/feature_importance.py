@@ -5,12 +5,6 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from my_plots import single_plot
 
-def sklearn_to_df(sklearn_dataset):
-    df = pd.DataFrame(sklearn_dataset.data, columns=sklearn_dataset.feature_names)
-    df['target'] = pd.Series(sklearn_dataset.target)
-    return df.sample(frac=1, random_state=44)
-
-
 def format_feat_imp(scores, feature_names, save_path=None):
     '''
         scores: list of feature importances (if scores are retrieved
@@ -47,36 +41,4 @@ def plot_feat_imp(df, x, y, n_max=5):
     g.set_ylabel('Feature')
     g.set_title('Feature importance for Boston dataset')
     g.figure.savefig('figures/boston/{}.png'.format(y), bbox_inches="tight")
-    plt.show()
-
-def plot_metrics(df, metrics=['r2', 'test_neg_mean_squared_error']):
-    metrics = list(metrics)
-    for m in metrics:
-        plt.plot(df[m])
-
-if __name__ == "__main__":
-    from sklearn.datasets import load_boston
-    from sklearn.tree import DecisionTreeRegressor
-    from sklearn.model_selection import train_test_split, cross_validate, KFold
-
-    reg = DecisionTreeRegressor()
-    boston = sklearn_to_df(load_boston())
-    scoring = ['r2', 'neg_mean_squared_error', 'neg_mean_absolute_error']
-    scores = cross_validate(reg, boston.drop('target', axis=1), boston['target'], cv=10,
-        scoring=scoring, return_train_score=True, return_estimator=True)
-    
-    # feature importances 
-    list_fi = [fi.feature_importances_ for fi in scores['estimator']]
-    df = format_feat_imp(list_fi, boston['feature_names'])
-    # plot_feat_imp(df, 'Feature', 'Importance', n_max=10)
-
-    # metrics (predictions)
-    metrics = [key for key in scores.keys() if key.startswith('test')]
-    for m in metrics:
-            boston[m] = scores['test_r2']
-
-    print('r2_mean: {:.2f}, r2_std: {:.2f}'.format(scores['test_r2'].mean(), scores['test_r2'].std()))
-    scores['estimator'][0].predict(boston.drop('target', axis=1))
-    format_metrics()
-
-    
+    plt.show()    
