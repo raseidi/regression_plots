@@ -29,15 +29,6 @@ def single_plot(func):
         palette = sns.color_palette('Blues_d', n_colors=n_max)
         sns.set(style='darkgrid', palette=palette, color_codes=False, rc=GLOBAL_CFG)
         func(*args, **kwargs)
-        # name = func.__name__
-        # arg_lst = []
-        # if args:
-        #     arg_lst.append(', '.join(repr(arg) for arg in args))
-        # if kwargs:
-        #     pairs = ['%s=%r' % (k, w) for k, w in sorted(kwargs.items())]
-        #     arg_lst.append(', '.join(pairs))
-        # arg_str = ', '.join(arg_lst)
-        # print('%s(%s)' % (name, arg_str,))
     return inner
 
 @single_plot
