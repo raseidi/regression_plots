@@ -38,4 +38,6 @@ if __name__ == "__main__":
     pred = reg.predict(X_test)
 
     format_scores = format_score(y_test, pred)
-    plot_score(format_scores)
+    sns.lmplot(x=df.y_true, y=df.y_pred, data=df)
+    plt.show()
+    # plot_score(format_scores)
