@@ -3,9 +3,8 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-from my_plots import single_plot
 
-def format_feat_imp(scores, feature_names, save_path=None):
+def feat_imp(scores, feature_names, save_path=None):
     '''
         scores: list of feature importances (if scores are retrieved
         from cross validation, pass scores like:
@@ -32,13 +31,10 @@ def format_feat_imp(scores, feature_names, save_path=None):
     if save_path is None:
         df.to_csv('data/boston/feature_importance.csv', index=False)
     return df
-
-@single_plot
-def plot_feat_imp(df, x, y, n_max=5):
-    df = df.head(n=n_max)
-    g = sns.barplot(x=x, y=y, data=df)
-    g.set_xlabel('Importance')
-    g.set_ylabel('Feature')
-    g.set_title('Feature importance for Boston dataset')
-    g.figure.savefig('figures/boston/{}.png'.format(y), bbox_inches="tight")
-    plt.show()    
+    
+    
+def ytrue_ypred(y_true, y_pred, name_columns=['y_true', 'y_pred']):
+    if len(name_columns) == 2:
+        return pd.DataFrame(data=np.c_[y_true, y_pred], columns=name_columns, index=y_true.index)
+    else:
+        return 'Set correct name columns.'
