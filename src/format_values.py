@@ -28,8 +28,8 @@ def feat_imp(scores, feature_names, save_path=None):
     df.rename(columns={'index': 'Feature'}, inplace=True)
 
     # ToDo: generic save_path param
-    if save_path is None:
-        df.to_csv('data/boston/feature_importance.csv', index=False)
+    # if save_path is None:
+    #     df.to_csv('data/boston/feature_importance.csv', index=False)
     return df
     
     

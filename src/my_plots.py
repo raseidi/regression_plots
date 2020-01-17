@@ -39,7 +39,7 @@ def plot_feat_imp(df, x, y, n_max=5):
     g.set_xlabel('Importance')
     g.set_ylabel('Feature')
     g.set_title('Feature importance for Boston dataset')
-    g.figure.savefig('figures/boston/{}.png'.format(y), bbox_inches="tight")
+    # g.figure.savefig('figures/boston/{}.png'.format(y), bbox_inches="tight")
     plt.show()    
 
 @single_plot
